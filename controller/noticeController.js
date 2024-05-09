@@ -43,6 +43,17 @@ const  getNoticeToStudent=async(req,res)=>{
 
 }
 
+const getNoticeCreatedByTeacher=async(req,res)=>{
+
+    const id=req.params.id
+    const notices=await noticeModel.find({teacherId:id})
+    return res.status(200).json({
+        message:"success",
+        data:notices
+    })
+
+}
+
 
 const updateNotice = async (req, res) => {
 
@@ -56,7 +67,7 @@ const updateNotice = async (req, res) => {
 
     return res.status(200).json({
         message: "Homework updated successfully",
-        Data: notice
+        data: notice
     });
 
 
@@ -76,7 +87,7 @@ const deleteNotice = async (req, res) => {
 
     return res.status(200).json({
         message: "Homework deleted successfully",
-        Data: deletedNotice
+        data: deletedNotice
     });
 
 
