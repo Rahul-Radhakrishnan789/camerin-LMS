@@ -54,6 +54,9 @@ app.use("/api",seminarRoute)
 const feeRoute=require("./routes/feeRoute.js")
 app.use("/api",feeRoute)
 
+const leaveRoute=require("./routes/leaveRoute")
+app.use("/api",leaveRoute)
+
 // const organizerRoute=require("./routes/organizerRoute")
 // app.use("/api",organizerRoute)
 
