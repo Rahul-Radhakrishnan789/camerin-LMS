@@ -98,5 +98,5 @@ const deleteNotice = async (req, res) => {
 
 
 module.exports={
-    addNotice,getNoticeToStudent,updateNotice,deleteNotice
+    addNotice,getNoticeToStudent,updateNotice,deleteNotice,getNoticeCreatedByTeacher
 }

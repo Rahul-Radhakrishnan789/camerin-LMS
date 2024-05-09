@@ -32,5 +32,27 @@ const getStudentsUnderSpesificDepartment=async(req,res)=>{
 
 }
 
+const editTeacherProfile = async (req, res) => {
+    
+    const teacherId = req.params.teacherId;
+    const updateFields = req.body;
 
-module.exports = {teacherProfile,getStudentsUnderSpesificDepartment}
+    
+        // Update teacher profile
+        const updatedTeacher = await teacherModel.findByIdAndUpdate(
+            teacherId,
+            updateFields,
+            { new: true }
+        );
+
+        if (!updatedTeacher) {
+            return res.status(404).json({ message: "Teacher not found" });
+        }
+
+        return res.status(200).json({ message: "Teacher profile updated successfully", teacher: updatedTeacher });
+
+
+}
+
+
+module.exports = {teacherProfile,getStudentsUnderSpesificDepartment,editTeacherProfile}

@@ -7,7 +7,7 @@ const teacher=require("../controller/teacherController")
 
 router.get("/teacherdata/:id",tryCatch(teacher.teacherProfile))
 router.get("/teacher/getstudentsunderdepartment/:id",tryCatch(teacher.getStudentsUnderSpesificDepartment))
-
+router.put("/updatedteacher/:teacherId",tryCatch(teacher.editTeacherProfile))
 
 
 

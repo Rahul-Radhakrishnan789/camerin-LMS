@@ -171,4 +171,34 @@ const getIndividualStudentData=async(req,res)=>{
 
 }
 
-module.exports = {register,login,getIndividualStudentData}
+const editStudentProfile=async(req,res)=>{
+    const id=req.params.id
+    const updateFields = req.body;
+
+    
+        // Update student profile
+        const updatedStudent = await studentModel.findByIdAndUpdate(
+            id,
+            updateFields,
+            { new: true }
+        );
+
+        if (!updatedStudent) {
+            return res.status(404).json({ message: "student not found" });
+        }
+
+        return res.status(200).json({ message: "student profile updated successfully", student: updatedStudent });
+
+}
+const getAllTeachersUnderSpecificDepartmet=async(req,res)=>{
+    const id=req.params.id
+    const student=await studentModel.findById(id)
+    const teachers=await teacherModel.find({course:student.course})
+    res.status(200).json({
+        message:"success",
+        data:teachers
+    })
+
+}
+
+module.exports = {register,login,getIndividualStudentData,editStudentProfile,getAllTeachersUnderSpecificDepartmet}

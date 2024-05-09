@@ -8,6 +8,7 @@ router.post("/addnotice/:id",tryCatch(notice.addNotice))
 router.get("/getnoticetostudent/:id",tryCatch(notice.getNoticeToStudent))
 router.put("/updatenotice/:id",tryCatch(notice.updateNotice))
 router.delete("/deletenotice/:id",tryCatch(notice.deleteNotice))
+router.get("/getnoticetoteacher/:id",tryCatch(notice.getNoticeCreatedByTeacher))
 
 
 
