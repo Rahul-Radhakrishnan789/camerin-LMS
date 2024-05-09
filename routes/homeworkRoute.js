@@ -9,6 +9,7 @@ router.post("/addhomework/:id",tryCatch(homeWork.addHomeWork))
 router.get("/gethomeworktostudent/:id",tryCatch(homeWork.getHomeWorkToStudent))
 router.put("/updatehomework/:id",tryCatch(homeWork.updateHomework))
 router.delete("/deletehomework/:id",tryCatch(homeWork.deleteHomework))
+router.get("/gethomeworktoteacher/:id",tryCatch(homeWork.getHomeworksToTeacher))
 
 
 module.exports=router

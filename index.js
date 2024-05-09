@@ -57,6 +57,9 @@ app.use("/api",feeRoute)
 const leaveRoute=require("./routes/leaveRoute")
 app.use("/api",leaveRoute)
 
+
+const dailyReport=require("./routes/dailyReportRoute")
+app.use("/api",dailyReport)
 // const organizerRoute=require("./routes/organizerRoute")
 // app.use("/api",organizerRoute)
 

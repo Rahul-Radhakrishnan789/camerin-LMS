@@ -27,6 +27,17 @@ const addHomeWork=async(req,res)=>{
     })
 }
 
+const getHomeworksToTeacher=async(req,res)=>{
+    const params=req.params.id
+
+    const homeworks=await homeworkModel.find({teacherId:id})
+
+    return res.status(200).json({
+        message:"success",
+        data:homeworks
+    })
+
+}
 
 const  getHomeWorkToStudent=async(req,res)=>{
     const id=req.params.id
@@ -90,6 +101,7 @@ module.exports={
     addHomeWork,
     getHomeWorkToStudent,
     updateHomework,
-    deleteHomework
+    deleteHomework,
+    getHomeworksToTeacher
 
 }
