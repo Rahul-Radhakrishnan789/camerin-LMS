@@ -63,11 +63,9 @@ app.use("/api",examTimetable)
 
 const dailyReport=require("./routes/dailyReportRoute")
 app.use("/api",dailyReport)
-// const organizerRoute=require("./routes/organizerRoute")
-// app.use("/api",organizerRoute)
 
-// const adminRoute=require("./routes/adminRoute")
-// app.use("/api",adminRoute)
+const book=require("./routes/bookRoute.js")
+app.use("/api",book)
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
