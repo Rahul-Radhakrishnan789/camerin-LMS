@@ -20,7 +20,7 @@ const addFee=async(req,res)=>{
         title:req.body.title,
         teacherId:id,
         amount:req.body.amount,
-        DueDate:req.body.amount,
+        DueDate:req.body.DueDate,
         course:teacher.course,
         students: students.map(student => ({ student: student._id }))
 
@@ -91,7 +91,7 @@ const addPayment=async(req,res)=>{
 const verifyPayment = async (req, res) => {
 
     const studentId = req.params.studentId;
-    const feeId=req.params.feeid
+    const feeId=req.params.feeId
 
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
