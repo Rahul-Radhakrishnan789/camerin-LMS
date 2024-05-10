@@ -57,6 +57,9 @@ app.use("/api",feeRoute)
 const leaveRoute=require("./routes/leaveRoute")
 app.use("/api",leaveRoute)
 
+const examTimetable=require("./routes/examTimetableRoute.js")
+app.use("/api",examTimetable)
+
 
 const dailyReport=require("./routes/dailyReportRoute")
 app.use("/api",dailyReport)

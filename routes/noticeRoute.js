@@ -14,4 +14,5 @@ router.get("/getnoticetoteacher/:id",tryCatch(notice.getNoticeCreatedByTeacher))
 
 
 
+
 module.exports=router
