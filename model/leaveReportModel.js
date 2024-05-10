@@ -16,7 +16,10 @@ const leaveReportSchema=new mongoose.Schema({
     course:{
         type:String
     },
-    
+    isApproved:{
+        type:Boolean,
+        default:false
+    }
     
     
 })
