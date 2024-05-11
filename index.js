@@ -70,6 +70,13 @@ app.use("/api",book)
 const booktransactions=require("./routes/bookTransactionRoute.js")
 app.use("/api",booktransactions)
 
+
+const marksheetRoute=require("./routes/marksheetRoute")
+app.use("/api",marksheetRoute)
+
+const attentenceRoute=require("./routes/attentenceRoute.js")
+app.use("/api",attentenceRoute)
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
   })

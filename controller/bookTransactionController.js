@@ -30,7 +30,7 @@ const studentRequestForParticulairBook=async(req,res)=>{
 
 const getAllUnApprovedTransactions=async(req,res)=>{
 
-    const allUnapprovedRequest=await bookTransactionModel.find({isApproved:false})
+    const allUnapprovedRequest=await bookTransactionModel.find({isApproved:false}).populate("bookid").populate("studentid")
 
     res.status(200).json({
         message:"succes",
@@ -97,7 +97,7 @@ const getTransactionsWithDueDateToday = async (req, res) => {
   
         const today = new Date();
         const formattedToday = today.toISOString().split('T')[0]; // Format: yyyy-mm-dd
-        const transactions = await bookTransactionModel.find({ endDate: formattedToday ,isDispatch:false}).populate("bookid").populate("studentid")
+        const transactions = await bookTransactionModel.find({ endDate: formattedToday ,isDispatch:false,isApproved:true}).populate("bookid").populate("studentid")
         
         return res.status(200).json(transactions);
     }
@@ -133,7 +133,8 @@ const findTransactionsWithEndDatePassed = async (req, res) => {
         const transactions = await bookTransactionModel.find({
             endDate: { $lt: today }, // endDate is less than today
             isFine: false ,// isFine is false
-            isDispatch:false
+            isDispatch:false,
+            isApproved:true
             
         }).populate("bookid").populate("studentid")
         
@@ -214,7 +215,8 @@ const verifyPaymentFromDelayedTransaction=async(req,res)=>{
 const getNotDispatchedTransactions=async(req,res)=>{
 
     const transactions=await bookTransactionModel.find({
-        isDispatch:false
+        isDispatch:false,
+        isApproved:true
     }).populate("bookid").populate("studentid")
 
 
@@ -243,7 +245,24 @@ const dispatchABook=async(req,res)=>{
 
 }
 
+const getBookStatusatoStudent=async(req,res)=>{
+    const id=req.params.id
+
+    const boodDetails=await bookTransactionModel.find({studentid:id})
+
+    if(!boodDetails){
+        return res.status(404).json({
+            message:"no books requirested"
+        })
+    }
+
+    return res.status(200).json({
+        message:"success",
+        data:bookDetails
+    })
+}
+
 module.exports={
     studentRequestForParticulairBook,getAllUnApprovedTransactions,ApproveBookTransaction,getTransactionsWithDueDateToday,sentReminderEmailToStudent,
-    findTransactionsWithEndDatePassed,applyFine,payFineFromStudentToDelayedDocument,verifyPaymentFromDelayedTransaction,getNotDispatchedTransactions,dispatchABook
+    findTransactionsWithEndDatePassed,applyFine,payFineFromStudentToDelayedDocument,verifyPaymentFromDelayedTransaction,getNotDispatchedTransactions,dispatchABook,getBookStatusatoStudent
 }

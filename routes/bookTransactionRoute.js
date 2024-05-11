@@ -15,7 +15,7 @@ router.post("/payfine",tryCatch(bookTransaction.payFineFromStudentToDelayedDocum
 router.post("/verifypayment/:id",tryCatch(bookTransaction.verifyPaymentFromDelayedTransaction))
 router.get("/getnotdispachedtransactions",tryCatch(bookTransaction.getNotDispatchedTransactions))
 router.post("/dispachbook/:id",tryCatch(bookTransaction.dispatchABook))
-
+router.get("/getbookstatus/:id",tryCatch(bookTransaction.getBookStatusatoStudent))
 
 
 
