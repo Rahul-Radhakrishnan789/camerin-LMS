@@ -32,7 +32,13 @@ const getBookByCategory=async(req,res)=>{
 
     res.status(200).json(books);
 }
-
+const getAllBookDetailsToLibrarian=async(req,res)=>{
+    const books=await bookModel.find({})
+    return res.status(200).json({
+        message:'success',
+        data:books
+    })
+}
 module.exports={
-    addBook,getAllBooks,getBookByCategory
+    addBook,getAllBooks,getBookByCategory,getAllBookDetailsToLibrarian
 }

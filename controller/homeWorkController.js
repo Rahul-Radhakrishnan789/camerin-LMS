@@ -28,7 +28,7 @@ const addHomeWork=async(req,res)=>{
 }
 
 const getHomeworksToTeacher=async(req,res)=>{
-    const params=req.params.id
+    const id=req.params.id
 
     const homeworks=await homeworkModel.find({teacherId:id})
 

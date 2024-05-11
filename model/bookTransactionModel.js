@@ -25,9 +25,21 @@ const bookTransactionSchema=new mongoose.Schema({
         type:Boolean,
         default:false
     },
+    isFine:{
+        type:Boolean,
+        default:false
+    },
+    isEmailSent:{
+        type:Boolean,
+        default:false
+    },
     fine:{
         type:Number,
         default:0
+    },
+    isPayed:{
+        type:Boolean,
+        default:false
     }
     
     

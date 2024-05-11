@@ -13,7 +13,7 @@ const addFee=async(req,res)=>{
 
     const teacher=await teacherModel.findById(id)
     const students=await studentModel.find({course:teacher.course})
-    const studentIds = students.map(student => student._id);
+    // const studentIds = students.map(student => student._id);
 
 
     const fee=new feeModel({

@@ -103,6 +103,8 @@ const login = async (req,res) => {
               return res.status(200).json({
                   message:"student login successfull",
                   data:token,
+                  type:"student",
+                  id:student._id
               })
             
           }
@@ -135,6 +137,8 @@ if(teacher){
       return res.status(200).json({
           message:"teacher login successfull",
           data:token,
+          type:"teacher",
+          id:teacher._id
         
       })
 

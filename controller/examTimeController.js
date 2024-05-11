@@ -10,7 +10,7 @@ const addTimeTable=async(req,res)=>{
 
     const timeTable=new timetableModel(
         {
-            timetable:req.body.timetable,
+            timetable:req.body,
             course:teacher.course,
             teacherId:id
 
