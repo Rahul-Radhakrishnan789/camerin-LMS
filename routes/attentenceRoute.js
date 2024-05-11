@@ -7,7 +7,8 @@ const attentence=require("../controller/attentenceController")
 
 router.post("/addattentence/:id",tryCatch(attentence.addAttentence))
 router.get("/getattentence",tryCatch(attentence.getAttentenceForparticulairDay))
-
+router.put("/updateattentence",tryCatch(attentence.updateAttentence))
+router.get("/getattetenceforstudent/:id",tryCatch(attentence.getAttetenceDetailsToParticulairStudent))
 
 
 module.exports=router

@@ -248,9 +248,9 @@ const dispatchABook=async(req,res)=>{
 const getBookStatusatoStudent=async(req,res)=>{
     const id=req.params.id
 
-    const boodDetails=await bookTransactionModel.find({studentid:id})
+    const bookDetails=await bookTransactionModel.find({studentid:id}).populate("studentid").populate('bookid')
 
-    if(!boodDetails){
+    if(!bookDetails){
         return res.status(404).json({
             message:"no books requirested"
         })
