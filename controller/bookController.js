@@ -21,11 +21,18 @@ const getAllBooks=async(req,res)=>{
 
     const availableBooks = await bookModel.find({ availiableCopies: { $gt: 0 } });
 
-        // Send response
         res.status(200).json(availableBooks);
 }
 
+const getBookByCategory=async(req,res)=>{
+    const { category } = req.params;
+
+    
+    const books = await bookModel.find({ category, availiableCopies: { $gt: 0 } });
+
+    res.status(200).json(books);
+}
 
 module.exports={
-    addBook,getAllBooks
+    addBook,getAllBooks,getBookByCategory
 }

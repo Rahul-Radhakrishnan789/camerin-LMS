@@ -5,6 +5,7 @@ const book=require("../controller/bookController")
 
 router.post("/addbook",tryCatch(book.addBook))
 router.get("/getallbook",tryCatch(book.getAllBooks))
+router.get("/getbook/:category",tryCatch(book.getBookByCategory))
 
 
 

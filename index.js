@@ -67,6 +67,9 @@ app.use("/api",dailyReport)
 const book=require("./routes/bookRoute.js")
 app.use("/api",book)
 
+const booktransactions=require("./routes/bookTransactionRoute.js")
+app.use("/api",booktransactions)
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
   })
