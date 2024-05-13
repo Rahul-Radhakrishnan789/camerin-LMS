@@ -1,4 +1,5 @@
-const attentenceModel=require("../model/attentenceModel")
+const attentenceModel=require("../model/attentenceModel");
+const bookTransaction = require("../model/bookTransactionModel");
 const teacherModel=require("../model/teacherModel")
 
 
@@ -24,8 +25,26 @@ const addAttentence=async(req,res)=>{
 
     const { attentence, Date } = req.body;
 
+    const uniqeDate=await attentenceModel.findOne({Date:Date})
+ 
+    if(uniqeDate){
+        return res.status(404).json({
+            message:"Attetence Already Added ,Please Edit Attentence it you want to change this"
+        })
+    }
+     
     for (let i = 0; i < attentence.length; i++) {
         const { studentId, status } = attentence[i]; 
+
+        const uniqeDate=await bookTransaction.findOne({Date:Date})
+        console.log(uniqeDate);
+
+        if(uniqeDate){
+            return res.status(404).json({
+                message:"Attetence Already Added ,Please Edit Attentence it you want to change this"
+            })
+        }
+
         const attendance = new attentenceModel({
             studentId: studentId,
             status: status,

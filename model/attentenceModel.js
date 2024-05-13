@@ -11,6 +11,7 @@ const attentenceSchema = new mongoose.Schema({
 
   Date: {
     type: Date,
+ 
   },
   course: {
     type: String,
@@ -19,6 +20,7 @@ const attentenceSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "teacher",
   },
+  
 });
 
 const attentence = mongoose.model("attentence", attentenceSchema);

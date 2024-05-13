@@ -13,12 +13,18 @@ const studentRequestForParticulairBook=async(req,res)=>{
     const bookid=req.params.bookid
     const studentid=req.params.studentid
 
+      const {startDate}=req.body
+    
+         // Calculate the end date as 15 days from the start date
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + 15);
+
 
      const bookTransaction=new bookTransactionModel({
         studentid:studentid,
         bookid:bookid,
         startDate:req.body.startDate,
-        endDate:req.body.endDate
+        endDate:endDate
      })
      await bookTransaction.save()
 
@@ -97,8 +103,9 @@ const getTransactionsWithDueDateToday = async (req, res) => {
   
         const today = new Date();
         const formattedToday = today.toISOString().split('T')[0]; // Format: yyyy-mm-dd
-        const transactions = await bookTransactionModel.find({ endDate: formattedToday ,isDispatch:false,isApproved:true}).populate("bookid").populate("studentid")
-        
+        console.log(formattedToday);
+        const transactions = await bookTransactionModel.find({ endDate: formattedToday,isDispatch:false,isApproved:true}).populate("bookid").populate("studentid")
+        console.log(transactions);
         return res.status(200).json(transactions);
     }
 
@@ -138,7 +145,12 @@ const findTransactionsWithEndDatePassed = async (req, res) => {
             
         }).populate("bookid").populate("studentid")
         
-    
+       if(transactions.length==0){
+        return res.status(404).json({
+            message:"no return book found in this day"
+        })
+        
+       }
       return res.status(200).json({message:"success",data:transactions});
     
 }
