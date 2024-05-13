@@ -15,11 +15,11 @@ const homeWorkSchema=new mongoose.Schema({
     },
     course:{
         type:String
-    },
-    expireAt: {
-        type: Date,
-        expires: 86400
     }
+    // expireAt: {
+    //     type: Date,
+    //     expires: 86400
+    // }
     
     
 })

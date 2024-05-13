@@ -11,13 +11,13 @@ const addHomeWork=async(req,res)=>{
 
     const teacher=await teacherModel.findById(id)
      
-    const date=Date.now()
+    // const date=Date.now()
     const homeWork=new homeworkModel({
         teacherId:id,
         title:req.body.title,
         description:req.body.description,
         course:teacher.course,
-        expireAt:date
+        // expireAt:date
     })
 
     await homeWork.save()
@@ -43,7 +43,12 @@ const  getHomeWorkToStudent=async(req,res)=>{
     const id=req.params.id
     const student=await studentModel.findById(id)
 
+    console.log(student)
+    
+
     const homeworks=await homeworkModel.find({course:student.course})
+
+    console.log(homeworks)
     
     return res.status(200).json({
         message:"success",
