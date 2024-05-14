@@ -75,6 +75,31 @@ const ApproveAMedicalCertificate=async(req,res)=>{
   })
 }
 
+
+
+const medicalCertificateToStudent=async(req,res)=>{
+  const id=req.params.studentId
+   
+
+  const certificates=await medicakCertificateModel.find({
+    studentId:id
+  })
+
+  if (certificates.length==0){
+    return res.status(404).json({
+      message:"no acticve medical certificate found"
+    })
+  }
+
+  return res.status(200).json({
+    message:"success",
+    data:certificates
+
+  })
+
+
+}
+
 module.exports={
-    addMedicalCertificate,getAllUnapprovedMedicalCerificate,ApproveAMedicalCertificate
+    addMedicalCertificate,getAllUnapprovedMedicalCerificate,ApproveAMedicalCertificate,medicalCertificateToStudent
 }

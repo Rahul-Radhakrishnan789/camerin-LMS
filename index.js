@@ -78,8 +78,17 @@ const attentenceRoute=require("./routes/attentenceRoute.js")
 app.use("/api",attentenceRoute)
 
 
+
+
 const medicalCerificateRoute=require("./routes/medicalCertificateRoute.js")
 app.use("/api",medicalCerificateRoute)
+
+
+const examRoute=require("./routes/examRoute.js")
+app.use("/api",examRoute)
+
+
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
   })
