@@ -52,8 +52,9 @@ const getAllUnapprovedMedicalCerificate=async(req,res)=>{
 
   const teacher=await teacherModel.findById(id)
    const unApprovedCertificates=await medicakCertificateModel.find({
-    course:teacher.course
-   })
+    course:teacher.course,
+    isApproved:false
+   }).populate("studentId")
 
    return res.status(200).json({
     message:"success",
