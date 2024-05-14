@@ -25,7 +25,9 @@ const addExam=async(req,res)=>{
        fs.unlinkSync(path);
      }
 
-     
+     const startDate=req.body.date.split('T')[0]
+
+     console.log(startDate);
 
     //  const certificate=new medicakCertificateModel({
     //     title:req.body.title,
@@ -40,7 +42,7 @@ const addExam=async(req,res)=>{
 
     const exam=new examModel({
         title:req.body.title,
-        date:req.body.date,
+        date:startDate,
         time:req.body.time,
         course:teacher.course,
         teacherId:id,
@@ -67,22 +69,40 @@ const examToStudent=async(req,res)=>{
     const course=student.course
 
     const today = new Date();
-
+   console.log(today,"today");
 
 
 
 
 const hours = today.getHours();
+console.log("hours",hours);
 const minutes = today.getMinutes();
+console.log("minu",minutes);
+
 const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-   
+console.log ("frmtdate",formattedTime)
+   const todayDate=today.toISOString().split('T')[0]
+
+   console.log(todayDate,"today");
+
+   typeof(todayDate)
+
+   console.log(formattedTime,todayDate,id,"hy");
+    // const exams = await examModel.find({
+    //     // date: today.toISOString().split('T')[0], // Extract date only (YYYY-MM-DD)
+    //     date:todayDate, // Extract date only (YYYY-MM-DD)
+
+    //     time: { $lte: formattedTime }, // Get exams from current time
+    //     course:course
+    //   });
     const exams = await examModel.find({
         // date: today.toISOString().split('T')[0], // Extract date only (YYYY-MM-DD)
-        date: today.toISOString(), // Extract date only (YYYY-MM-DD)
+        date:`${todayDate}`, // Extract date only (YYYY-MM-DD)
 
-        time: { $gte: formattedTime }, // Get exams after current time
+        time: { $lte: formattedTime }, // Get exams from current time
         course:course
       });
+
 
       return res.status(201).json({
         message:"success",
