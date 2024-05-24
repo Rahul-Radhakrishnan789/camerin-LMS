@@ -87,6 +87,9 @@ app.use("/api",medicalCerificateRoute)
 const examRoute=require("./routes/examRoute.js")
 app.use("/api",examRoute)
 
+const examSubmissionRoute=require("./routes/examSubmissionRoute.js")
+app.use("/api",examSubmissionRoute)
+
 
 
 app.listen(port, () => {
