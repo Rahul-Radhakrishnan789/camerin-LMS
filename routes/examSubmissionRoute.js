@@ -7,8 +7,9 @@ const examSubmission=require("../controller/examSubmissionController")
 
 
 router.post("/submitexam/:studentId/:examId",upload.array("images",5),tryCatch(examSubmission.submitAnExamFromStudent))
-router.put("/updateexam/:exmasubmittedId",upload.array("images",5),tryCatch(examSubmission.editExamFromStudent))
+router.put("/updateexam/:examId",upload.array("images",5),tryCatch(examSubmission.editExamFromStudent))
 router.get("/getallsubmittedstudents/:examId",tryCatch(examSubmission.getSubmittedStudentsForAParticulairExam))
+router.get("/getexam/:studentId/:examId",tryCatch(examSubmission.getSubmittedExamToStudent))
 
 
 
