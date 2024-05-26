@@ -49,6 +49,26 @@ const submitAnExamFromStudent=async(req,res)=>{
 
 }
 
+const getSubmittedExamToStudent=async(req,res)=>{
+    const {studentId,examId}=req.params
+
+    const submittedexam=await examSubmissionSchema.find({
+        studentId:studentId,
+        examId:examId
+    })
+
+    if(submittedexam.length==0){
+        return res.status(404).json({
+            message:"no data found"
+        })
+    }
+
+    res.status(200).json({
+        message:"success",
+        data:submittedexam
+    })
+}
+
 
 const editExamFromStudent=async(req,res)=>{
     const id=req.params.exmasubmittedId
@@ -58,7 +78,7 @@ const editExamFromStudent=async(req,res)=>{
 
     const exam=await examSubmissionSchema.findById(id)
     const uploader = async (path) => await cloudinary.uploads(path, "images");
-    if (req.method == "POST") {
+    if (req.method == "PUT") {
       const files = req.files;
   
       for (const file of files) {
@@ -111,5 +131,5 @@ const getSubmittedStudentsForAParticulairExam=async(req,res)=>{
 }
 
 module.exports={
-    submitAnExamFromStudent,editExamFromStudent,getSubmittedStudentsForAParticulairExam
+    submitAnExamFromStudent,editExamFromStudent,getSubmittedStudentsForAParticulairExam,getSubmittedExamToStudent
 }
