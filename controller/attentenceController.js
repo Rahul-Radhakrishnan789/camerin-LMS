@@ -65,6 +65,7 @@ const addAttentence=async(req,res)=>{
 
 const getAttentenceForparticulairDay=async(req,res)=>{
     const date=req.body.Date
+    console.log(date);
 
     const attentence=await attentenceModel.find({Date:date}).populate('studentId')
 
@@ -84,16 +85,7 @@ const updateAttentence=async(req,res)=>{
 
     const {attentence,Date}=req.body
 
-    // const updatedAttendance = await attentenceModel.findByIdAndUpdate(
-    //     attentenceId, // ID of the attendance record to update
-    //     { attentence: attentence, Date: Date }, // Updated attendance data
-    //     { new: true } 
-    // );
-
     
-    // if (!updatedAttendance) {
-    //     return res.status(404).json({ message: 'Attendance record not found' });
-    // }
 
     for (let i = 0; i < attentence.length; i++) {
         const { studentId, status } = attentence[i]; 
