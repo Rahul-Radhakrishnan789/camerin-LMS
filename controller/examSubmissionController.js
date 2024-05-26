@@ -71,7 +71,7 @@ const getSubmittedExamToStudent=async(req,res)=>{
 
 
 const editExamFromStudent=async(req,res)=>{
-    const id=req.params.exmasubmittedId
+    const id=req.params.exmaId
 
     let urls = [];
 

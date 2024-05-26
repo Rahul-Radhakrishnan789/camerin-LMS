@@ -112,9 +112,30 @@ console.log ("frmtdate",formattedTime)
 
 
 }
+//controller function for get all exam created by user
+
+const getAllExamsCreatedByTeacher=async(req,res)=>{
+
+const id=req.params.teacherId
+
+const exams=await examModel.find({teacherId:id})
+
+if(exams.length==0){
+  return res.status(404).json({
+    message:"no exam found created by this teacher"
+  })
+}
+
+
+res.status(200).json({
+  message:"success",
+  data:exams
+})
+
+}
 
 
 
 module.exports={
-    addExam,examToStudent
+    addExam,examToStudent,getAllExamsCreatedByTeacher
 }
