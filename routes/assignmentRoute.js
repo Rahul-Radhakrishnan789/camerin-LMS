@@ -14,7 +14,7 @@ router.get("/assignments/:id",tryCatch(assignment.viewallSubmittedStudents))
 router.put("/assignment/:assignmentId/:studentId",tryCatch(assignment.assignMarkForSubmittedStudent))
 router.put("/assigment/:assignmentId",tryCatch(assignment.editAssignment))
 router.get("/assignments/teacher/getteacher/:teacherId",tryCatch(assignment.getAssaignmentsCreatedByTeacher))
-
+router.put("/updateassignment/:assignmentId/:studentId",upload.array("images",5),tryCatch(assignment.submitAssignment))
 
 
 module.exports=router

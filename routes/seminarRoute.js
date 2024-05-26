@@ -14,6 +14,7 @@ router.get("/seminar/:id",tryCatch(seminar.viewallSubmittedStudents))
 router.put("/seminar/:seminarId/:studentId",tryCatch(seminar.assignMarkForSubmittedStudent))
 router.put("/seminar/:seminarId",tryCatch(seminar.editseminar))
 router.get("/seminar/teacher/getteacher/:teacherId",tryCatch(seminar.getSeminarCreatedByTeacher))
+router.put("/seminar/:seminarId/students/:studentId/upload",upload.array("images",5),tryCatch(seminar.editASeminarByStudent))
 
 
 

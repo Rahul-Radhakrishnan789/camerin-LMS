@@ -37,6 +37,8 @@ const addSeminar=async(req,res)=>{
 const getSeminarForStudent = async (req, res) => {
 
     const studentId = req.params.id;
+    const today = new Date();
+    const todayDate=today.toISOString().split('T')[0]
 
    
         // Find the student by ID
@@ -48,7 +50,9 @@ const getSeminarForStudent = async (req, res) => {
         // Get assignments for the student's course where the student ID is in the assignment's students array
         const seminar = await seminarModel.find({
             course: student.course,
-            'students.student': studentId
+            'students.student': studentId,
+            deadLine: { $gte: todayDate }
+
         });
 
         return res.status(200).json({ 
@@ -103,6 +107,56 @@ const submitSeminar=async(req,res)=>{
 
 
 }
+
+//this controller function for edit a seminar that already submitted by student
+
+const editASeminarByStudent=async(req,res)=>{
+
+    const { studentId, seminarId } = req.params;
+    let urls = [];
+
+
+    const seminar = await seminarModel.findById(seminarId);
+        if (!seminar) {
+            return res.status(404).json({ message: "seminar not found" });
+        }
+
+
+        const studentIndex = seminar.students.findIndex(student => student.student.toString() === studentId);
+        if (studentIndex === -1) {
+            return res.status(404).json({ message: "Student not found in seminar" });
+        }
+      
+        const uploader = async (path) => await cloudinary.uploads(path, "images");
+        if (req.method == "PUT") {
+          const files = req.files;
+      
+          for (const file of files) {
+            const { path } = file;
+      
+            const newPath = await uploader(path);
+      
+            urls.push(newPath);
+      
+            fs.unlinkSync(path);
+          }
+
+          seminar.students[studentIndex].imagefile = urls; 
+         
+
+          await seminar.save();
+
+          return res.status(200).json({ message: "Seminar edited successfully" });
+
+        
+        }
+        
+
+}
+
+
+
+
 
 const viewallSubmittedStudents=async(req,res)=>{
     
@@ -186,5 +240,5 @@ const getSeminarCreatedByTeacher=async(req,res)=>{
 
 
 module.exports={
-   addSeminar,getSeminarForStudent,submitSeminar,viewallSubmittedStudents,assignMarkForSubmittedStudent,editseminar,getSeminarCreatedByTeacher
+   addSeminar,getSeminarForStudent,submitSeminar,viewallSubmittedStudents,assignMarkForSubmittedStudent,editseminar,getSeminarCreatedByTeacher,editASeminarByStudent
 }

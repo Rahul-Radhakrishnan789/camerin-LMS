@@ -36,6 +36,10 @@ const addAssignment=async(req,res)=>{
 const getAssignmentsForStudent = async (req, res) => {
 
     const studentId = req.params.id;
+    const today = new Date();
+    const todayDate=today.toISOString().split('T')[0]
+
+
 
    
         // Find the student by ID
@@ -47,7 +51,8 @@ const getAssignmentsForStudent = async (req, res) => {
         // Get assignments for the student's course where the student ID is in the assignment's students array
         const assignments = await assignmentModel.find({
             course: student.course,
-            'students.student': studentId
+            'students.student': studentId,
+            deadLine: { $gte: todayDate }
         });
 
         return res.status(200).json({ 
@@ -102,6 +107,57 @@ const submitAssignment=async(req,res)=>{
 
 
 }
+
+//this assignment controller for edit assignment by student that already submitted
+
+
+const updateAssignmentByStudent=async(req,res)=>{
+
+    const { studentId, assignmentId } = req.params;
+    let urls = [];
+
+    const assignment = await assignmentModel.findById(assignmentId);
+        if (!assignment) {
+            return res.status(404).json({ message: "Assignment not found" });
+        }
+
+
+        const studentIndex = assignment.students.findIndex(student => student.student.toString() === studentId);
+        if (studentIndex === -1) {
+            return res.status(404).json({ message: "Student not found in assignment" });
+        }
+      
+        const uploader = async (path) => await cloudinary.uploads(path, "images");
+        if (req.method == "PUT") {
+          const files = req.files;
+      
+          for (const file of files) {
+            const { path } = file;
+      
+            const newPath = await uploader(path);
+      
+            urls.push(newPath);
+      
+            fs.unlinkSync(path);
+          }
+
+          assignment.students[studentIndex].imagefile = urls; 
+          
+
+          await assignment.save();
+
+          return res.status(200).json({ message: "assignment submitted successfull" });
+
+        
+        }
+        
+
+}
+
+
+
+
+
 
 const viewallSubmittedStudents=async(req,res)=>{
     
@@ -185,5 +241,5 @@ const getAssaignmentsCreatedByTeacher=async(req,res)=>{
 
 
 module.exports={
-   addAssignment,getAssignmentsForStudent,submitAssignment,viewallSubmittedStudents,assignMarkForSubmittedStudent,editAssignment,getAssaignmentsCreatedByTeacher
+   addAssignment,getAssignmentsForStudent,submitAssignment,viewallSubmittedStudents,assignMarkForSubmittedStudent,editAssignment,getAssaignmentsCreatedByTeacher,updateAssignmentByStudent
 }
