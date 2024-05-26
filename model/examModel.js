@@ -13,6 +13,10 @@ const examSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  endTime:{
+    type:String,
+    required:true
+  },
   course: {
     type: String,
     required: true,

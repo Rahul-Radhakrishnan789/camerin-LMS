@@ -11,7 +11,7 @@ const seminarModel=require("../model/seminarModel")
 const addSeminar=async(req,res)=>{
     const id=req.params.id
     
-
+    console.log(req.body);
     const teacher=await teacherModel.findById(id)
 
     const students=await studentModel.find({course:teacher.course})
@@ -23,7 +23,7 @@ const addSeminar=async(req,res)=>{
         description: req.body.description,
         course: teacher.course,
         startDate: req.body.startDate,
-        deadLine: req.body.deadLine,
+        deadLine: req.body.deadline,
         students: students.map(student => ({ student: student._id }))
     });
 

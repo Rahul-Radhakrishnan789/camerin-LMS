@@ -44,6 +44,7 @@ const addExam=async(req,res)=>{
         title:req.body.title,
         date:startDate,
         time:req.body.time,
+        endTime:req.body.endTime ,  //endTime nde T sreddikk ambaane
         course:teacher.course,
         teacherId:id,
         imageFile:urls
@@ -100,7 +101,8 @@ console.log ("frmtdate",formattedTime)
         date:`${todayDate}`, // Extract date only (YYYY-MM-DD)
 
         time: { $lte: formattedTime }, // Get exams from current time
-        course:course
+        course:course,
+        endTime:{ $gt: formattedTime}
       });
 
 
